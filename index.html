@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="web_standard" name="shell-type"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;1,400;1,700;1,800;1,900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+    @layer base {
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        overscroll-behavior: none;
+      }
+      main > :first-child {
+        margin-top: 0 !important;
+      }
+      main > :last-child {
+        margin-bottom: 0 !important;
+      }
+    }
+    ::-webkit-scrollbar {
+      display: none;
+    }
+    .text-glow-red {
+      text-shadow: 0 0 20px rgba(215, 20, 26, 0.9), 0 0 45px rgba(215, 20, 26, 0.6), 0 0 70px rgba(215, 20, 26, 0.4);
+    }
+    .box-glow-red {
+      box-shadow: 0 0 35px rgba(215, 20, 26, 0.35);
+    }
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.6; filter: drop-shadow(0 0 8px #d7141a); }
+      50% { opacity: 1; filter: drop-shadow(0 0 20px #d7141a); }
+    }
+    .animate-pulse-glow {
+      animation: pulseGlow 3s ease-in-out infinite;
+    }
+  </style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "on-primary-fixed-variant": "#930009",
+            "tertiary-container": "#6b6c6c",
+            "tertiary-fixed-dim": "#c6c6c6",
+            "on-tertiary": "#2f3131",
+            "on-primary-fixed": "#410002",
+            "on-tertiary-fixed-variant": "#464747",
+            "secondary": "#ffb4a8",
+            "outline-variant": "#5d3f3c",
+            "surface-dim": "#131313",
+            "surface-container-highest": "#353534",
+            "on-surface": "#e5e2e1",
+            "on-tertiary-fixed": "#1a1c1c",
+            "on-secondary-fixed": "#410000",
+            "error": "#ffb4ab",
+            "on-error-container": "#ffdad6",
+            "on-primary-container": "#ffeae7",
+            "tertiary-fixed": "#e3e2e2",
+            "on-error": "#690005",
+            "tertiary": "#c6c6c6",
+            "on-primary": "#690004",
+            "on-secondary-fixed-variant": "#920703",
+            "on-background": "#e5e2e1",
+            "primary-fixed": "#ffdad5",
+            "surface-container-lowest": "#0e0e0e",
+            "primary-fixed-dim": "#ffb4ab",
+            "surface-container": "#201f1f",
+            "surface-tint": "#ffb4ab",
+            "on-surface-variant": "#e7bdb7",
+            "on-secondary": "#690000",
+            "surface-container-high": "#2a2a2a",
+            "secondary-fixed-dim": "#ffb4a8",
+            "surface-container-low": "#1c1b1b",
+            "inverse-primary": "#c00010",
+            "surface": "#131313",
+            "background": "#131313",
+            "on-secondary-container": "#ff9a8a",
+            "on-tertiary-container": "#efeeee",
+            "error-container": "#93000a",
+            "primary": "#ffb4ab",
+            "inverse-surface": "#e5e2e1",
+            "primary-container": "#d7141a",
+            "secondary-fixed": "#ffdad4",
+            "secondary-container": "#920703",
+            "surface-bright": "#3a3939",
+            "outline": "#ae8883",
+            "surface-variant": "#353534",
+            "inverse-on-surface": "#313030"
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          spacing: {
+            "gutter": "1.25rem",
+            "space-xl": "2.5rem",
+            "gutter-desktop": "1.75rem",
+            "space-xs": "0.25rem",
+            "space-sm": "0.5rem",
+            "space-lg": "1.5rem",
+            "margin-desktop": "3.5rem",
+            "space-md": "1rem",
+            "margin": "1rem",
+            "margin-tablet": "2rem"
+          },
+          fontFamily: {
+            "label-lg": ["Barlow Condensed"],
+            "label-sm": ["Barlow Condensed"],
+            "headline-lg": ["Anton"],
+            "body-sm": ["Barlow Condensed"],
+            "title-lg": ["Barlow Condensed"],
+            "headline-xl-mobile": ["Anton"],
+            "headline-md": ["Anton"],
+            "headline-xl": ["Anton"],
+            "title-md": ["Barlow Condensed"],
+            "body-md": ["Barlow Condensed"],
+            "headline-sm": ["Anton"],
+            "label-md": ["Barlow Condensed"],
+            "headline-lg-mobile": ["Anton"],
+            "body-lg": ["Barlow Condensed"]
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-surface-container-lowest text-on-surface font-body-md text-body-md selection:bg-primary-container selection:text-on-primary-container relative">
+<!-- Grain Atmosphere Overlay -->
+<div class="pointer-events-none fixed inset-0 z-50 opacity-[0.035] mix-blend-screen bg-repeat" style="background-image: url('data:image/svg+xml;utf8,&lt;svg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'&gt;&lt;filter id=\'noise\'&gt;&lt;feTurbulence type=\'fractalNoise\' baseFrequency=\'0.85\' numOctaves=\'3\' stitchTiles=\'stitch\'/&gt;&lt;/filter&gt;&lt;rect width=\'100%\' height=\'100%\' filter=\'url(%23noise)\'/&gt;&lt;/svg&gt;');"></div>
+<!-- Header -->
+<header class="fixed top-0 left-0 right-0 w-full z-40 bg-surface-container-lowest/90 backdrop-blur-xl border-b border-primary-container/20 shadow-[0_4px_20px_rgba(0,0,0,0.8)]">
+<div class="h-20 w-full px-margin md:px-margin-tablet lg:px-margin-desktop flex items-center justify-between gap-space-md">
+<div class="flex items-center gap-3 shrink-0">
+<img alt="SD COMBAT Emblema Dragão" class="h-12 w-12 object-contain mix-blend-screen filter drop-shadow-[0_0_12px_rgba(225,6,0,0.7)] bg-transparent" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOWSTv0wxp72m1bWjTS8T5zxflTO73ICgez1tgdJrryDwUK6te5XApvklCa_kpqbSLdz7mOhmsm_noHmcR_ZIxAbmKF8VXXKhuw4mdt9xNrMb279JvdB4RbcwksRrXYiEIwaf-CAhPOnncTQMSG-80CRfB6yPZS8Toxz0_W92p-E8FSbn-zVW5RVt1rdV5c10yB4BxaIqDIhIoYsDbnswBfv1NTPScN3FDMx2P6y1y8sV2t_Bd2CTu" style="mix-blend-mode: screen;"/>
+<span class="font-headline-sm text-headline-sm uppercase tracking-wider text-on-surface italic font-black">SD COMBAT</span>
+</div>
+<nav class="hidden lg:flex items-center gap-space-xl" data-active-classes="text-on-surface">
+<a aria-current="page" class="font-label-lg uppercase tracking-widest transition-colors text-on-surface hover:text-primary-container" data-path="home" href="#colecao">Coleção</a>
+<a class="font-label-lg text-label-lg uppercase tracking-widest text-on-surface-variant hover:text-on-surface transition-colors" data-path="a-marca" href="#marca">A Marca</a>
+<a class="font-label-lg text-label-lg uppercase tracking-widest text-on-surface-variant hover:text-on-surface transition-colors" data-path="academias" href="#academias">Academias</a>
+<a class="font-label-lg text-label-lg uppercase tracking-widest text-on-surface-variant hover:text-on-surface transition-colors" data-path="lote-fundador" href="#lote-fundador">Lote First Blood</a>
+</nav>
+<div class="flex items-center gap-space-md">
+<a class="inline-flex items-center justify-center bg-primary-container hover:bg-secondary-container text-on-primary-container font-headline-sm text-headline-sm uppercase px-space-lg py-space-xs transition-all shadow-[0_0_16px_rgba(215,20,26,0.4)] hover:shadow-[0_0_24px_rgba(215,20,26,0.8)]" href="#lote-fundador">Quero o meu</a>
+<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-primary text-[18px]">person</span>
+</div>
+</div>
+</div>
+</header>
+<main class="w-full pt-20 bg-surface-container-lowest min-h-screen">
+<div class="flex flex-col w-full text-on-surface select-none overflow-x-hidden relative">
+<!-- SECTION 1: HERO -->
+<section class="relative min-h-[920px] lg:min-h-screen flex items-center px-margin md:px-margin-tablet lg:px-margin-desktop py-space-xl overflow-hidden bg-[#0A0A0A]">
+<!-- Full-Bleed Cinematic Background Image (Fighter with Red Rim Light & Smoke) -->
+<div class="absolute inset-0 z-0 overflow-hidden">
+<img alt="Lutador musculoso brasileiro em guarda alta de boxe com bandagens pretas sob iluminação vermelha e fumaça" class="w-full h-full object-cover object-right md:object-center filter contrast-125 brightness-95 scale-[1.02]" src="https://lh3.googleusercontent.com/aida/ALJJyrBy_VDxXwnxI2vKPNeKrgQLbk7YiSMT875DEcye0lGQM8bd683VmzdOZnmlJyxbFS5EelvQBB7Opqnr0U2M_AsUN6zCmFYvNtEHT8HhA1wEmYIQquWRoYL8ADC9rKJpQC6a6GMqaPwj_HuZR0ERoiKXmhnfF6D2ifAhfsn22T18S6iH8OupvJLQH74OKCgzhdxfPsGEBD2co_pnfgAwuE0UUdPm8s0n2yvAAIPqcT6R"/>
+<!-- Deep Dark Vignette / Gradient on Left Side to Guarantee Crisp Legibility -->
+<div class="absolute inset-0 bg-gradient-to-r from-[#0A0A0A] via-[#0A0A0A]/90 md:via-[#0A0A0A]/80 to-transparent"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-transparent"></div>
+<div class="absolute top-0 right-0 w-full md:w-1/2 h-full bg-radial from-primary-container/20 via-transparent to-transparent pointer-events-none"></div>
+</div>
+<!-- Oversized Decorative Background: Dragon Emblem (~120% height, partially cropped, 10% opacity, crimson glow) -->
+<div class="absolute -right-24 md:-right-16 top-1/2 -translate-y-1/2 w-[850px] lg:w-[1050px] xl:w-[1200px] h-[120%] pointer-events-none z-1 flex items-center justify-center opacity-20 select-none"><img alt="SD COMBAT Dragão Marca" class="w-full h-full object-contain filter drop-shadow-[0_0_35px_rgba(225,6,0,0.35)] mix-blend-screen bg-transparent" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOWSTv0wxp72m1bWjTS8T5zxflTO73ICgez1tgdJrryDwUK6te5XApvklCa_kpqbSLdz7mOhmsm_noHmcR_ZIxAbmKF8VXXKhuw4mdt9xNrMb279JvdB4RbcwksRrXYiEIwaf-CAhPOnncTQMSG-80CRfB6yPZS8Toxz0_W92p-E8FSbn-zVW5RVt1rdV5c10yB4BxaIqDIhIoYsDbnswBfv1NTPScN3FDMx2P6y1y8sV2t_Bd2CTu" style="mix-blend-mode: screen;"/></div>
+<!-- Ambient Watermark Kanji in background -->
+<div class="absolute right-8 top-1/4 select-none pointer-events-none z-1 hidden xl:block opacity-10">
+<span class="font-headline-xl text-[260px] leading-none text-primary-container font-black">戦う</span>
+</div>
+<!-- Main Hero Layout Grid: Left Content + Right Imposing Glowing Brand Emblem -->
+<div class="relative z-20 w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-y-12 gap-x-8 items-center pt-8">
+<!-- Left Column: Typography & CTAs -->
+<div class="lg:col-span-7 flex flex-col gap-space-md">
+<!-- Micro Header Badge -->
+<div class="inline-flex items-center gap-space-sm bg-surface-container-high/90 border border-primary-container/40 px-space-md py-space-xs w-fit shadow-[0_0_15px_rgba(215,20,26,0.3)] backdrop-blur-md">
+<span class="inline-block w-2.5 h-2.5 bg-primary-container rounded-full animate-ping"></span>
+<span class="font-label-md text-label-md uppercase tracking-[0.25em] text-primary">SD COMBAT // PRE-SEASON 2026</span>
+<span class="text-tertiary-container">|</span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant">LOTE FIRST BLOOD LIMITADO</span>
+</div>
+<!-- Substantially Bigger Headline (100px-120px desktop) -->
+<h1 class="font-headline-xl text-[54px] sm:text-[76px] md:text-[96px] lg:text-[110px] xl:text-[120px] uppercase font-black tracking-tighter text-on-surface leading-[0.9] drop-shadow-[0_6px_25px_rgba(0,0,0,0.95)]">
+              EQUIPADO PARA<br/>
+<span class="text-primary-container italic tracking-tight font-black" style="font-style: italic; text-shadow: 0 0 16px rgba(215, 20, 26, 0.4), 0 0 32px rgba(215, 20, 26, 0.2);">VENCER.</span>
+</h1>
+<p class="font-body-lg text-body-lg md:text-[20px] text-on-surface/90 max-w-xl font-normal leading-relaxed pt-2">
+              Equipamento de luta com design agressivo e preço justo. A primeira coleção está sendo forjada com couro selecionado, absorção anatômica e espírito de guerra.
+            </p>
+<!-- Hero CTAs -->
+<div class="flex flex-wrap items-center gap-space-md pt-space-sm">
+<a class="group relative inline-flex items-center justify-center gap-space-sm px-space-xl py-space-md bg-primary-container hover:bg-secondary-container text-on-primary-container font-headline-sm text-headline-sm uppercase tracking-wider transition-all duration-300 shadow-[0_0_30px_rgba(215,20,26,0.6)] hover:shadow-[0_0_45px_rgba(215,20,26,0.9)] hover:scale-[1.02]" href="#lote-fundador"><span>Entrar no Lote First Blood</span><span class="material-symbols-outlined text-[20px] transition-transform group-hover:translate-x-1">military_tech</span></a>
+<a class="inline-flex items-center justify-center gap-space-xs px-space-lg py-space-md bg-surface-container-high/90 hover:bg-surface-container-highest border border-outline-variant/50 text-on-surface font-title-md text-title-md uppercase tracking-wider transition-all hover:border-primary-container" href="#colecao">
+<span>Conhecer a Coleção</span>
+<span class="material-symbols-outlined text-primary-container text-[18px]">south</span>
+</a>
+</div>
+<!-- Trust Micro-Pills -->
+<div class="flex flex-wrap items-center gap-y-2 gap-x-space-lg pt-space-md text-on-surface-variant/90 font-label-md text-label-md uppercase tracking-wider">
+<div class="flex items-center gap-space-xs">
+<span class="w-1.5 h-1.5 bg-primary-container shadow-[0_0_6px_#d7141a]"></span>
+<span>Couro Premium Selecionado</span>
+</div>
+<span class="text-surface-container-highest hidden sm:inline">•</span>
+<div class="flex items-center gap-space-xs">
+<span class="w-1.5 h-1.5 bg-primary-container shadow-[0_0_6px_#d7141a]"></span>
+<span>Testado por Lutadores Reais</span>
+</div>
+<span class="text-surface-container-highest hidden sm:inline">•</span>
+<div class="flex items-center gap-space-xs"><span class="w-1.5 h-1.5 bg-primary-container shadow-[0_0_6px_#d7141a]"></span><span>Lote First Blood - 300 Unidades</span></div>
+</div>
+</div>
+<!-- Right Column: Prominent Large Glowing SD COMBAT Brand Emblem -->
+<div class="lg:col-span-5 flex flex-col items-center justify-center relative">
+<div class="relative w-full max-w-md lg:max-w-none flex flex-col items-center p-4">
+<!-- Radial Crimson Aura Behind Logo -->
+<div class="absolute inset-0 bg-primary-container/25 rounded-full blur-[80px] scale-110 pointer-events-none"></div>
+<!-- Imposing Brand Emblem Container -->
+<div class="relative z-10 w-full group transition-transform duration-500 hover:scale-105">
+<div class="relative p-8 sm:p-10 bg-surface-container-lowest/80 backdrop-blur-md border border-primary-container/40 rounded-xl shadow-[0_0_50px_rgba(215,20,26,0.35)] flex flex-col items-center text-center">
+<!-- Corner Rivets -->
+<span class="absolute top-2 left-2 w-2 h-2 rounded-full bg-primary-container/80 shadow-[0_0_6px_#d7141a]"></span>
+<span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-primary-container/80 shadow-[0_0_6px_#d7141a]"></span>
+<span class="absolute bottom-2 left-2 w-2 h-2 rounded-full bg-primary-container/80 shadow-[0_0_6px_#d7141a]"></span>
+<span class="absolute bottom-2 right-2 w-2 h-2 rounded-full bg-primary-container/80 shadow-[0_0_6px_#d7141a]"></span>
+<!-- Prominent Dragon Emblem (220px+ width/height) -->
+<div class="relative w-64 h-64 md:w-72 md:h-72 flex items-center justify-center mb-3"><div class="absolute inset-0 rounded-full bg-primary-container/20 blur-2xl pointer-events-none"></div><img alt="SD COMBAT Dragon Emblem" class="w-full h-full object-contain mix-blend-screen relative z-10 filter drop-shadow-[0_0_30px_rgba(215,20,26,0.65)] bg-transparent" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOWSTv0wxp72m1bWjTS8T5zxflTO73ICgez1tgdJrryDwUK6te5XApvklCa_kpqbSLdz7mOhmsm_noHmcR_ZIxAbmKF8VXXKhuw4mdt9xNrMb279JvdB4RbcwksRrXYiEIwaf-CAhPOnncTQMSG-80CRfB6yPZS8Toxz0_W92p-E8FSbn-zVW5RVt1rdV5c10yB4BxaIqDIhIoYsDbnswBfv1NTPScN3FDMx2P6y1y8sV2t_Bd2CTu" style="mix-blend-mode: screen;"/></div>
+<!-- Wordmark & Subtitle -->
+<div class="flex flex-col items-center gap-1">
+<span class="font-headline-xl text-3xl sm:text-4xl uppercase tracking-wider text-on-surface italic font-black text-glow-red">SD COMBAT</span>
+<span class="font-label-md text-label-md uppercase tracking-[0.28em] text-primary font-bold">FIGHT EQUIPMENT</span>
+</div>
+<!-- Tactical Seal Sub-bar -->
+<div class="w-full mt-5 pt-3 border-t border-outline-variant/60 flex items-center justify-between text-on-surface-variant font-label-sm uppercase tracking-widest">
+<span class="text-primary font-bold flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+                    ORIGINAL COMBAT DIVISION
+                  </span>
+<span class="text-tertiary">EST. 2026 BR</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Glowing Red Animated Divider -->
+<div class="relative w-full h-[2px] bg-gradient-to-r from-transparent via-primary-container to-transparent animate-pulse-glow z-30"></div>
+<!-- SECTION 2: MANIFESTO BAND (with subtle dragon watermark) -->
+<section class="relative w-full bg-surface-container py-space-xl px-margin md:px-margin-tablet lg:px-margin-desktop overflow-hidden shadow-inner" id="marca">
+<!-- Dragon Emblem Watermark Background (6-8% opacity) -->
+<div class="absolute right-4 md:right-16 top-1/2 -translate-y-1/2 w-[480px] h-[480px] opacity-10 pointer-events-none flex items-center justify-center select-none"><img alt="SD COMBAT Dragon Marca D'água" class="w-full h-full object-contain filter drop-shadow-[0_0_30px_#d7141a] mix-blend-screen bg-transparent" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOWSTv0wxp72m1bWjTS8T5zxflTO73ICgez1tgdJrryDwUK6te5XApvklCa_kpqbSLdz7mOhmsm_noHmcR_ZIxAbmKF8VXXKhuw4mdt9xNrMb279JvdB4RbcwksRrXYiEIwaf-CAhPOnncTQMSG-80CRfB6yPZS8Toxz0_W92p-E8FSbn-zVW5RVt1rdV5c10yB4BxaIqDIhIoYsDbnswBfv1NTPScN3FDMx2P6y1y8sV2t_Bd2CTu" style="mix-blend-mode: screen;"/></div>
+<div class="absolute left-6 top-1/2 -translate-y-1/2 pointer-events-none opacity-10 hidden md:block">
+<span class="font-headline-xl text-[180px] leading-none text-primary-container font-black">魂</span>
+</div>
+<div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-space-xl relative z-10">
+<!-- Watermark Badge -->
+<div class="flex flex-col items-center justify-center shrink-0 w-24 h-24 bg-surface-container-lowest/90 border border-primary-container/40 text-primary-container shadow-[0_0_20px_rgba(215,20,26,0.25)] relative">
+<!-- Rivets -->
+<span class="absolute top-1.5 left-1.5 w-1.5 h-1.5 rounded-full bg-outline"></span>
+<span class="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-outline"></span>
+<span class="absolute bottom-1.5 left-1.5 w-1.5 h-1.5 rounded-full bg-outline"></span>
+<span class="absolute bottom-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-outline"></span>
+<span class="font-headline-lg text-headline-lg leading-none">魂</span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant">VAGAS FIRST BLOOD</span>
+</div>
+<!-- Core Punchy Manifesto -->
+<div class="flex flex-col gap-space-sm text-center md:text-left flex-1">
+<blockquote class="font-headline-md text-headline-md md:text-headline-lg text-on-surface uppercase tracking-wide leading-tight">
+              “Todo lutador merece entrar no treino se sentindo pronto para a guerra.”
+            </blockquote>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-3xl">
+              Uma marca 100% brasileira nascida no tatame e no ringue. Feita para quem treina de verdade — do primeiro dia de sparring à disputa de cinturão.
+            </p>
+</div>
+<!-- Emblem Counter -->
+<div class="shrink-0 flex flex-col items-center justify-center bg-surface-container-low border border-primary-container/30 px-space-lg py-space-md text-center shadow-lg">
+<span class="font-headline-md text-headline-md text-primary-container text-glow-red leading-none">300</span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface">VAGAS FIRST BLOOD</span>
+</div>
+</div>
+</section>
+<!-- Glowing Red Animated Divider -->
+<div class="relative w-full h-[2px] bg-gradient-to-r from-transparent via-primary-container to-transparent animate-pulse-glow z-30"></div>
+<!-- SECTION 3: A PRIMEIRA COLEÇÃO (High impact filled studio cards with dramatic hover & rim glow) -->
+<section class="w-full py-space-xl px-margin md:px-margin-tablet lg:px-margin-desktop bg-surface-container-lowest relative" id="colecao">
+<div class="max-w-7xl mx-auto flex flex-col gap-space-xl">
+<!-- Section Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+<div class="flex flex-col gap-space-xs">
+<div class="inline-flex items-center gap-space-xs text-primary-container font-label-lg text-label-lg uppercase tracking-widest">
+<span class="material-symbols-outlined text-[18px]">swords</span>
+<span>FORJADA COM ALMA DE GUERREIRO</span>
+</div>
+<h2 class="font-headline-xl text-headline-lg md:text-headline-xl uppercase text-on-surface leading-none tracking-tight">
+                A PRIMEIRA COLEÇÃO
+              </h2>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-md">
+              Peças fabricadas com couro genuíno, reforço de costura industrial e o icônico grafismo carmesim texturizado. Pré-lançamento exclusivo sem valor de varejo liberado ainda.
+            </p>
+</div>
+<!-- 3 Products Grid (Tactile & Dramatic Filled Cards) -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-lg items-stretch"><!-- CARD 1: LUVAS SD BOXING --><article class="group relative flex flex-col bg-surface-container-low border border-outline-variant/40 hover:border-primary-container transition-all duration-500 shadow-xl hover:shadow-[0_0_35px_rgba(215,20,26,0.35)] overflow-hidden"><span class="absolute top-2 left-2 w-1.5 h-1.5 rounded-full bg-outline/60 z-20"></span><span class="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-outline/60 z-20"></span><div class="relative w-full h-80 overflow-hidden bg-black flex items-center justify-center"><img alt="Luvas de boxe SD Combat Pro em couro preto com dragão carmesim" class="w-full h-full object-cover object-center transform group-hover:scale-105 transition-transform duration-500 filter contrast-110" src="https://lh3.googleusercontent.com/aida/ALJJyrApkYOOukEiskVwhNYqS5WIuRw1SQCPcCKHe6JxRdAgeHVMBdGGPK0WTbQp55ALzeSxZpGoZY_IR1lFgEOYFFj-8mdaPzQoPxA17HIXZ3__OI0ERx9cLCp3_J1OMxGxudPaAIoUJWaxRd2PJ7E1IqyvOWO4-Piop69BQblVG5feLiYKE0xbhZY__eHbURz1wahAcDW3e-e_jiFTs-wFdGI_0Hu-mckC370AgHd1X8-5"/><div class="absolute inset-0 bg-gradient-to-t from-surface-container-low via-transparent to-transparent opacity-80"></div><div class="absolute top-4 right-4 bg-primary-container text-on-primary-container px-space-sm py-space-xs font-label-sm text-label-sm uppercase tracking-widest shadow-md">EM DESENVOLVIMENTO</div><div class="absolute bottom-3 left-4 font-headline-sm text-headline-sm text-on-surface/90">12 • 14 • 16 OZ</div></div><div class="p-space-lg flex flex-col flex-1 justify-between gap-space-md"><div class="flex flex-col gap-space-xs"><span class="font-label-sm text-label-sm uppercase tracking-widest text-primary-container">LINHA COMBATE PRO</span><h3 class="font-headline-md text-headline-md uppercase text-on-surface tracking-wide">SD BOXING</h3><p class="font-title-md text-title-md text-secondary">Luvas de Boxe Pro 12, 14 e 16 oz</p><p class="font-body-sm text-body-sm text-on-surface-variant pt-space-xs">Acabamento em couro legítimo matte, estampa dragão carmesim em relevo e trava de punho anatômica com tripla camada de absorção de impacto.</p></div><div class="pt-space-sm"><a class="w-full inline-flex items-center justify-center gap-space-xs py-space-sm px-space-md bg-surface-container-high group-hover:bg-primary-container text-on-surface group-hover:text-on-primary-container font-headline-sm text-headline-sm uppercase tracking-wider transition-all duration-300" href="#lead-form"><span>Quero ser avisado</span><span class="material-symbols-outlined text-[18px]">notifications_active</span></a></div></div></article><!-- CARD 2: CANELEIRAS SD SHIN GUARDS --><article class="group relative flex flex-col bg-surface-container-low border border-outline-variant/40 hover:border-primary-container transition-all duration-500 shadow-xl hover:shadow-[0_0_35px_rgba(215,20,26,0.35)] overflow-hidden"><span class="absolute top-2 left-2 w-1.5 h-1.5 rounded-full bg-outline/60 z-20"></span><span class="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-outline/60 z-20"></span><div class="relative w-full h-80 overflow-hidden bg-black flex items-center justify-center"><img alt="Par de caneleiras para Muay Thai SD Combat com escudo e textura de dragão vermelho" class="w-full h-full object-cover object-center transform group-hover:scale-105 transition-transform duration-500 filter contrast-110" src="https://lh3.googleusercontent.com/aida/ALJJyrBMo3MEu9h4NQ_A0zLTDTC-rOvZKjoD-yehSuDT8GOV_9DxYsRgTD-JBRyVoN9vDHXaWHgRqxLb9O9CX_9WCqrcV25Asb1rtbvahBzPNawiz8L2LXh-GhX30yktN4JEZEcbWFQaIzyQLTESc0CakiTD7NCuF4hIeuTOzgBMOd8sMXbUsrAqaYPsJ9ZJpqbn8ljtCLe1cOYHNkdkUbwhtZmqvAUWynKuXjAKtESvntFf"/><div class="absolute inset-0 bg-gradient-to-t from-surface-container-low via-transparent to-transparent opacity-80"></div><div class="absolute top-4 right-4 bg-primary-container text-on-primary-container px-space-sm py-space-xs font-label-sm text-label-sm uppercase tracking-widest shadow-md">EM DESENVOLVIMENTO</div><div class="absolute bottom-3 left-4 font-headline-sm text-headline-sm text-on-surface/90">TAMANHOS M • G</div></div><div class="p-space-lg flex flex-col flex-1 justify-between gap-space-md"><div class="flex flex-col gap-space-xs"><span class="font-label-sm text-label-sm uppercase tracking-widest text-primary-container">PROTEÇÃO TIBIAL</span><h3 class="font-headline-md text-headline-md uppercase text-on-surface tracking-wide">SD SHIN GUARDS</h3><p class="font-title-md text-title-md text-secondary">Caneleiras para Muay Thai e Kickboxing</p><p class="font-body-sm text-body-sm text-on-surface-variant pt-space-xs">Proteção tibial e no peito do pé com densidade reforçada, dupla cinta de velcro aero-grip e grafismo oriental carmesim.</p></div><div class="pt-space-sm"><a class="w-full inline-flex items-center justify-center gap-space-xs py-space-sm px-space-md bg-surface-container-high group-hover:bg-primary-container text-on-surface group-hover:text-on-primary-container font-headline-sm text-headline-sm uppercase tracking-wider transition-all duration-300" href="#lead-form"><span>Quero ser avisado</span><span class="material-symbols-outlined text-[18px]">notifications_active</span></a></div></div></article><!-- CARD 3: BANDAGENS SD HAND WRAPS --><article class="group relative flex flex-col bg-surface-container-low border border-outline-variant/40 hover:border-primary-container transition-all duration-500 shadow-xl hover:shadow-[0_0_35px_rgba(215,20,26,0.35)] overflow-hidden"><span class="absolute top-2 left-2 w-1.5 h-1.5 rounded-full bg-outline/60 z-20"></span><span class="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-outline/60 z-20"></span><div class="relative w-full h-80 overflow-hidden bg-black flex items-center justify-center"><img alt="Rolo de bandagem de combate SD Combat com bordado premium em fio vermelho" class="w-full h-full object-cover object-center transform group-hover:scale-105 transition-transform duration-500 filter contrast-110" src="https://lh3.googleusercontent.com/aida/ALJJyrCQqMkgom5NmfIw4TqBZGsC5I-__IsXLsNJzO4BgtCnrrUMqbdu7WMTkoBis8QuobyF4j1dN4VY9TXrD3CEMs0oo6yQxgpZhqZJVINGE0OfEolpT_WkdFK0IfVB-Izds_UlkVGZ6-vHvBACgwenjhKtFd04C2m1tzZuYSYpmo3zXsztjKuyKBvYFTQG0Ma-86-9LK_Vr3jd6st7aDsnixa38GoNzXdhj4rLbO8e2XZA"/><div class="absolute inset-0 bg-gradient-to-t from-surface-container-low via-transparent to-transparent opacity-80"></div><div class="absolute top-4 right-4 bg-primary-container text-on-primary-container px-space-sm py-space-xs font-label-sm text-label-sm uppercase tracking-widest shadow-md">EM DESENVOLVIMENTO</div><div class="absolute bottom-3 left-4 font-headline-sm text-headline-sm text-on-surface/90">METRAGEM 3M • 5M</div></div><div class="p-space-lg flex flex-col flex-1 justify-between gap-space-md"><div class="flex flex-col gap-space-xs"><span class="font-label-sm text-label-sm uppercase tracking-widest text-primary-container">SUPORTE ARTICULAR</span><h3 class="font-headline-md text-headline-md uppercase text-on-surface tracking-wide">SD HAND WRAPS</h3><p class="font-title-md text-title-md text-secondary">Bandagens Elásticas &amp; Rígidas</p><div class="flex flex-col gap-1 text-body-sm text-on-surface-variant pt-space-xs"><p><strong class="text-on-surface font-bold">• Bandagem Elástica:</strong> Ajuste confortável e flexível para o treino diário.</p><p><strong class="text-on-surface font-bold">• Bandagem Rígida (Rigid Taping):</strong> Máxima estabilidade e proteção articular para sparrings pesados.</p></div></div><div class="pt-space-sm"><a class="w-full inline-flex items-center justify-center gap-space-xs py-space-sm px-space-md bg-surface-container-high group-hover:bg-primary-container text-on-surface group-hover:text-on-primary-container font-headline-sm text-headline-sm uppercase tracking-wider transition-all duration-300" href="#lead-form"><span>Quero ser avisado</span><span class="material-symbols-outlined text-[18px]">notifications_active</span></a></div></div></article><!-- CARD 4: SD RASH GUARD --><article class="group relative flex flex-col bg-surface-container-low border border-outline-variant/40 hover:border-primary-container transition-all duration-500 shadow-xl hover:shadow-[0_0_35px_rgba(215,20,26,0.35)] overflow-hidden"><span class="absolute top-2 left-2 w-1.5 h-1.5 rounded-full bg-outline/60 z-20"></span><span class="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-outline/60 z-20"></span><div class="relative w-full h-80 overflow-hidden bg-black flex items-center justify-center"><img alt="SD Combat Pro Compression Rash Guard com detalhes de escamas carmesim" class="w-full h-full object-cover object-center transform group-hover:scale-105 transition-transform duration-500 filter contrast-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSBdfGPfphwDjROJtXYsYIzh9wU1ChWBp8QWzTwwCXX4TiBha7HzypIGCIiwiHKeu12f-CHo57diU7ugIUI5uqnJ4silpkIg1rr_xQSGVHDe-gbAi9f9OyiEBeo6jA-SBYxTuERc0a8IhbThezr5Bu7SeKeDpzhQeLHe4VMOwFpDGKYzUn20Qo_jHxyeofNC6PmUL-_72Rej9Wf6-qCeSO1U-7_4z2nO4JSIUl1cc"/><div class="absolute inset-0 bg-gradient-to-t from-surface-container-low via-transparent to-transparent opacity-80"></div><div class="absolute top-4 right-4 bg-primary-container text-on-primary-container px-space-sm py-space-xs font-label-sm text-label-sm uppercase tracking-widest shadow-md">EM DESENVOLVIMENTO</div><div class="absolute bottom-3 left-4 font-headline-sm text-headline-sm text-on-surface/90">TAMANHOS P • M • G • GG</div></div><div class="p-space-lg flex flex-col flex-1 justify-between gap-space-md"><div class="flex flex-col gap-space-xs"><span class="font-label-sm text-label-sm uppercase tracking-widest text-primary-container">VESTUÁRIO TÉCNICO</span><h3 class="font-headline-md text-headline-md uppercase text-on-surface tracking-wide">SD RASH GUARD</h3><p class="font-title-md text-title-md text-secondary">Rash Guard Manga Longa de Alta Performance</p><p class="font-body-sm text-body-sm text-on-surface-variant pt-space-xs">Rash guard manga longa em tecido de alta compressão respirável. Grafismos de escamas de dragão em carmesim metálico nos ombros e costura flatlock ultrarresistente contra atrito.</p></div><div class="pt-space-sm"><a class="w-full inline-flex items-center justify-center gap-space-xs py-space-sm px-space-md bg-surface-container-high group-hover:bg-primary-container text-on-surface group-hover:text-on-primary-container font-headline-sm text-headline-sm uppercase tracking-wider transition-all duration-300" href="#lead-form"><span>Quero ser avisado</span><span class="material-symbols-outlined text-[18px]">notifications_active</span></a></div></div></article></div>
+</div>
+</section>
+<!-- Glowing Red Animated Divider -->
+<div class="relative w-full h-[2px] bg-gradient-to-r from-transparent via-primary-container to-transparent animate-pulse-glow z-30"></div>
+<!-- SECTION 4: PARA CADA FASE DA SUA LUTA -->
+<section class="w-full py-space-xl px-margin md:px-margin-tablet lg:px-margin-desktop bg-surface-container-low relative">
+<div class="max-w-7xl mx-auto flex flex-col gap-space-xl">
+<div class="text-center max-w-3xl mx-auto flex flex-col gap-space-xs">
+<span class="font-label-lg text-label-lg uppercase tracking-widest text-primary-container">DISCIPLINA E EVOLUÇÃO</span>
+<h2 class="font-headline-xl text-headline-lg md:text-headline-xl uppercase text-on-surface leading-tight">
+              PARA CADA FASE DA SUA LUTA
+            </h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">
+              Equipamentos pensados para a evolução contínua da sua arte marcial.
+            </p>
+</div>
+<!-- 4 High Contrast Tiles with Bronze Rivets -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
+<!-- Tile 1: Iniciante -->
+<div class="group relative bg-surface-container border border-outline-variant/30 p-space-lg flex flex-col gap-space-md transition-all duration-300 hover:bg-surface-container-high hover:border-primary-container/60 shadow-lg hover:shadow-[0_0_20px_rgba(215,20,26,0.3)]">
+<span class="absolute top-2 left-2 w-1.5 h-1.5 rounded-full bg-outline"></span>
+<span class="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-outline"></span>
+<span class="absolute bottom-2 left-2 w-1.5 h-1.5 rounded-full bg-outline"></span>
+<span class="absolute bottom-2 right-2 w-1.5 h-1.5 rounded-full bg-outline"></span>
+<div class="w-12 h-12 bg-surface-container-lowest flex items-center justify-center text-primary-container border border-primary-container/20">
+<span class="material-symbols-outlined text-[28px]">sports_mma</span>
+</div>
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant">LOTE FIRST BLOOD LIMITADO</span>
+<h3 class="font-headline-sm text-headline-sm uppercase text-on-surface">Iniciante</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                  Comece com equipamento de verdade. Ergonomia que ensina o fechamento correto do punho desde a primeira aula.
+                </p>
+</div>
+</div>
+<!-- Tile 2: Praticante -->
+<div class="group relative bg-surface-container border border-outline-variant/30 p-space-lg flex flex-col gap-space-md transition-all duration-300 hover:bg-surface-container-high hover:border-primary-container/60 shadow-lg hover:shadow-[0_0_20px_rgba(215,20,26,0.3)]">
+<span class="absolute top-2 left-2 w-1.5 h-1.5 rounded-full bg-outline"></span>
+<span class="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-outline"></span>
+<span class="absolute bottom-2 left-2 w-1.5 h-1.5 rounded-full bg-outline"></span>
+<span class="absolute bottom-2 right-2 w-1.5 h-1.5 rounded-full bg-outline"></span>
+<div class="w-12 h-12 bg-surface-container-lowest flex items-center justify-center text-primary-container border border-primary-container/20">
+<span class="material-symbols-outlined text-[28px]">shield</span>
+</div>
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant">LOTE FIRST BLOOD LIMITADO</span>
+<h3 class="font-headline-sm text-headline-sm uppercase text-on-surface">Praticante</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                  Conforto e durabilidade para treinar todo dia. Materiais resistentes ao suor intenso e rotinas diárias pesadas.
+                </p>
+</div>
+</div>
+<!-- Tile 3: Competidor -->
+<div class="group relative bg-surface-container border border-outline-variant/30 p-space-lg flex flex-col gap-space-md transition-all duration-300 hover:bg-surface-container-high hover:border-primary-container/60 shadow-lg hover:shadow-[0_0_20px_rgba(215,20,26,0.3)]">
+<span class="absolute top-2 left-2 w-1.5 h-1.5 rounded-full bg-outline"></span>
+<span class="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-outline"></span>
+<span class="absolute bottom-2 left-2 w-1.5 h-1.5 rounded-full bg-outline"></span>
+<span class="absolute bottom-2 right-2 w-1.5 h-1.5 rounded-full bg-outline"></span>
+<div class="w-12 h-12 bg-surface-container-lowest flex items-center justify-center text-primary-container border border-primary-container/20">
+<span class="material-symbols-outlined text-[28px]">emoji_events</span>
+</div>
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant">LOTE FIRST BLOOD LIMITADO</span>
+<h3 class="font-headline-sm text-headline-sm uppercase text-on-surface">Competidor</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                  Pensado para a rotina pesada de quem compete
+                </p>
+</div>
+</div>
+<!-- Tile 4: Professores e Academias -->
+<div class="group relative bg-surface-container border border-outline-variant/30 p-space-lg flex flex-col gap-space-md transition-all duration-300 hover:bg-surface-container-high hover:border-primary-container/60 shadow-lg hover:shadow-[0_0_20px_rgba(215,20,26,0.3)]">
+<span class="absolute top-2 left-2 w-1.5 h-1.5 rounded-full bg-outline"></span>
+<span class="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-outline"></span>
+<span class="absolute bottom-2 left-2 w-1.5 h-1.5 rounded-full bg-outline"></span>
+<span class="absolute bottom-2 right-2 w-1.5 h-1.5 rounded-full bg-outline"></span>
+<div class="w-12 h-12 bg-surface-container-lowest flex items-center justify-center text-primary-container border border-primary-container/20">
+<span class="material-symbols-outlined text-[28px]">fitness_center</span>
+</div>
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant">LOTE FIRST BLOOD LIMITADO</span>
+<h3 class="font-headline-sm text-headline-sm uppercase text-on-surface">Professores e Academias</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                  Kits exclusivos para alunos, condições especiais de atacado e personalização para sua equipe.
+                </p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Glowing Red Animated Divider -->
+<div class="relative w-full h-[2px] bg-gradient-to-r from-transparent via-primary-container to-transparent animate-pulse-glow z-30"></div>
+<!-- SECTION 5: LOTE FUNDADOR -->
+<section class="w-full py-space-xl px-margin md:px-margin-tablet lg:px-margin-desktop bg-gradient-to-b from-surface-container-lowest via-secondary-container/20 to-surface-container-lowest relative overflow-hidden" id="lote-fundador">
+<div class="absolute -top-32 left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-primary-container/15 rounded-full blur-[140px] pointer-events-none"></div>
+<div class="max-w-4xl mx-auto flex flex-col items-center text-center gap-space-lg relative z-10">
+<div class="relative bg-surface-container-high border border-primary-container/50 px-space-xl py-space-md shadow-2xl flex flex-col items-center">
+<span class="font-label-sm text-label-sm uppercase tracking-[0.3em] text-primary">CHAVE DE ACESSO RESTRITO</span>
+<span class="font-headline-lg text-headline-md sm:text-headline-lg uppercase text-on-surface tracking-wider">LOTE FIRST BLOOD — Nº 001 / 300</span>
+<div class="w-full h-px bg-outline-variant/60 my-space-xs"></div>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-tertiary">FORGED IN BRAZIL • SERIAL AUTHENTICATED</span>
+</div>
+<div class="flex flex-col gap-space-sm max-w-2xl">
+<h2 class="font-headline-lg text-headline-lg uppercase tracking-tight text-on-surface">
+              FAÇA PARTE DA HISTÓRIA DA SD COMBAT
+            </h2>
+<p class="font-body-lg text-body-lg text-on-surface/90">As primeiras unidades produzidas serão individualmente numeradas de 001 a 300. Os membros do Lote First Blood recebem preço histórico de lançamento, chave de acesso antecipado antes do público geral e itens exclusivos de colecionador.</p>
+</div>
+<div class="inline-flex items-center gap-space-sm bg-primary-container/20 border border-primary-container/40 px-space-lg py-space-sm">
+<span class="w-2.5 h-2.5 bg-primary-container rounded-full animate-ping"></span>
+<span class="font-headline-sm text-headline-sm uppercase tracking-wider text-primary">
+              Apenas 300 vagas prioritárias registradas
+            </span>
+</div>
+<a class="inline-flex items-center justify-center gap-space-sm px-space-xl py-space-md bg-primary-container hover:bg-secondary-container text-on-primary-container font-headline-md text-headline-md uppercase tracking-wider transition-all duration-300 shadow-[0_0_30px_rgba(215,20,26,0.5)] hover:shadow-[0_0_40px_rgba(215,20,26,0.85)]" href="#lead-form">
+<span>Garantir meu número</span>
+<span class="material-symbols-outlined text-[24px]">verified</span>
+</a>
+</div>
+</section>
+<!-- Glowing Red Animated Divider -->
+<div class="relative w-full h-[2px] bg-gradient-to-r from-transparent via-primary-container to-transparent animate-pulse-glow z-30"></div>
+<!-- SECTION 6: ACADEMIAS E PARCEIROS -->
+<section class="w-full py-space-xl px-margin md:px-margin-tablet lg:px-margin-desktop bg-surface-container relative" id="academias">
+<div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-center">
+<!-- Left Column: Authentic Brazilian MMA Gym Image -->
+<div class="lg:col-span-6 relative overflow-hidden rounded-xl border-2 border-primary-container/50 shadow-[0_0_35px_rgba(215,20,26,0.25)] bg-surface-container-lowest group">
+<div class="aspect-[4/3] w-full relative overflow-hidden">
+<img alt="Tatame de academia de artes marciais no Brasil com sacos de pancada de couro e octógono ao fundo com iluminação neon vermelha" class="w-full h-full object-cover object-center filter contrast-125 brightness-95 group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida/ALJJyrC6FW6ndDFPQsApELoPuE0r7YvJ8Ky9UUsgd9TLO7TXz8PwM96Jule4E8eossJhL-CYqHmj9mk3jtSxViGuEfMU7wr7j6rrM9ho2WIfsh4vhL_d0t45Hud8xBz__UqUSmWxlVxDH8iA4_C9g6V88vOIqo175gYRT7G-JXpQm40IHtnw06rOA8uTYWui5dOAUSDOPd_1VAb-RkjNg0pEZRSKmMfB6NOpNCceL07WwTPQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-transparent to-transparent opacity-80"></div>
+<!-- Red Accent Tag -->
+<div class="absolute bottom-4 left-4 bg-surface-container-lowest/90 border border-primary-container/60 px-space-md py-space-xs backdrop-blur-sm shadow-md">
+<span class="font-label-md text-label-md uppercase tracking-widest text-primary flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+                  CT PARCEIRO CREDENCIADO
+                </span>
+</div>
+</div>
+</div>
+<!-- Right Column: Content Box with Industrial Bronze Rivets -->
+<div class="lg:col-span-6 relative bg-surface-container-low border border-outline-variant/40 p-space-xl shadow-xl flex flex-col gap-space-lg rounded-xl">
+<span class="absolute top-2 left-2 w-1.5 h-1.5 rounded-full bg-outline"></span>
+<span class="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-outline"></span>
+<span class="absolute bottom-2 left-2 w-1.5 h-1.5 rounded-full bg-outline"></span>
+<span class="absolute bottom-2 right-2 w-1.5 h-1.5 rounded-full bg-outline"></span>
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-sm text-label-sm uppercase tracking-[0.2em] text-primary-container">B2B &amp; CENTROS DE TREINAMENTO</span>
+<h2 class="font-headline-md text-headline-md uppercase text-on-surface tracking-wide leading-tight">
+                PARCERIA DIRETA PARA ACADEMIAS E CENTROS DE TREINAMENTO
+              </h2>
+<p class="font-body-md text-body-md text-on-surface-variant pt-space-xs">
+                Seja um dos centros de treinamento credenciados SD COMBAT. Condições diferenciadas em lote para renovação de sacos de pancada, luvas de treino para alunos, caneleiras de sparring e kits para instrutores.
+              </p>
+</div>
+<!-- Benefits Bullet List -->
+<ul class="flex flex-col gap-space-sm font-body-md text-body-md text-on-surface">
+<li class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-primary-container text-[20px] shrink-0 mt-0.5">verified</span>
+<span>Preços diretos de fábrica para frotas de alunos e compras recorrentes.</span>
+</li>
+<li class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-primary-container text-[20px] shrink-0 mt-0.5">verified</span>
+<span>Amostras técnicas antecipadas para testes da equipe de graduação.</span>
+</li>
+<li class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-primary-container text-[20px] shrink-0 mt-0.5">verified</span>
+<span>Canal prioritário via WhatsApp com especialista em equipamentos de combate.</span>
+</li>
+</ul>
+<!-- Direct CTA to Consultant WhatsApp -->
+<div class="pt-space-xs">
+<a class="inline-flex items-center justify-center gap-space-sm w-full py-space-md px-space-lg bg-surface-container-high hover:bg-primary-container text-on-surface hover:text-on-primary-container font-headline-sm text-headline-sm uppercase tracking-wider transition-all duration-300 shadow-md border border-outline-variant/40 hover:border-primary-container" href="https://wa.me/?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20as%20condições%20para%20academias%20da%20SD%20COMBAT." rel="noopener noreferrer" target="_blank">
+<span class="material-symbols-outlined text-[22px]">chat</span>
+<span>Falar no WhatsApp com Consultor</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+<!-- Glowing Red Animated Divider -->
+<div class="relative w-full h-[2px] bg-gradient-to-r from-transparent via-primary-container to-transparent animate-pulse-glow z-30"></div>
+<!-- SECTION 7: LEAD FORM (LOTE FUNDADOR) -->
+<section class="w-full py-space-xl px-margin md:px-margin-tablet lg:px-margin-desktop bg-surface-container-lowest relative" id="lead-form">
+<div class="max-w-3xl mx-auto relative bg-surface-container-low border border-primary-container/30 p-space-lg md:p-space-xl shadow-2xl rounded-xl">
+<span class="absolute top-2 left-2 w-2 h-2 rounded-full bg-outline"></span>
+<span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-outline"></span>
+<span class="absolute bottom-2 left-2 w-2 h-2 rounded-full bg-outline"></span>
+<span class="absolute bottom-2 right-2 w-2 h-2 rounded-full bg-outline"></span>
+<!-- Form Heading -->
+<div class="text-center flex flex-col gap-space-xs mb-space-lg">
+<span class="font-label-sm text-label-sm uppercase tracking-[0.2em] text-primary-container">CADASTRO OFICIAL</span>
+<h2 class="font-headline-lg text-headline-md md:text-headline-lg uppercase text-on-surface tracking-tight">ENTRE NA LISTA DO LOTE FIRST BLOOD</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-xl mx-auto">
+              Garanta prioridade de compra das 300 primeiras unidades numeradas e receba o catálogo secreto no WhatsApp.
+            </p>
+</div>
+<!-- Form Elements -->
+<form class="flex flex-col gap-space-md" id="loteForm" onsubmit="event.preventDefault(); document.getElementById('formSuccess').classList.remove('hidden'); this.classList.add('hidden');">
+<!-- Nome Completo -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-md text-label-md uppercase tracking-wider text-on-surface" for="nome">Nome Completo</label>
+<input class="w-full bg-surface-container border border-outline-variant/40 px-space-md py-space-sm text-on-surface placeholder:text-on-surface-variant/40 font-body-md text-body-md focus:outline-none focus:border-primary-container focus:bg-surface-container-high transition-colors" id="nome" placeholder="Digite seu nome de guerra ou civil" required="" type="text"/>
+</div>
+<!-- WhatsApp e E-mail -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-md text-label-md uppercase tracking-wider text-on-surface" for="whatsapp">WhatsApp / Celular com DDD</label>
+<input class="w-full bg-surface-container border border-outline-variant/40 px-space-md py-space-sm text-on-surface placeholder:text-on-surface-variant/40 font-body-md text-body-md focus:outline-none focus:border-primary-container focus:bg-surface-container-high transition-colors" id="whatsapp" placeholder="(11) 99999-9999" required="" type="tel"/>
+</div>
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-md text-label-md uppercase tracking-wider text-on-surface" for="email">E-mail Principal</label>
+<input class="w-full bg-surface-container border border-outline-variant/40 px-space-md py-space-sm text-on-surface placeholder:text-on-surface-variant/40 font-body-md text-body-md focus:outline-none focus:border-primary-container focus:bg-surface-container-high transition-colors" id="email" placeholder="seu.melhor@email.com" required="" type="email"/>
+</div>
+</div>
+<!-- Modalidade e Perfil -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-md text-label-md uppercase tracking-wider text-on-surface" for="modalidade">Modalidade Principal</label>
+<select class="w-full bg-surface-container border border-outline-variant/40 px-space-md py-space-sm text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary-container focus:bg-surface-container-high transition-colors" id="modalidade" required="">
+<option disabled="" selected="" value="">Selecione sua arte</option>
+<option value="Boxe">Boxe</option>
+<option value="Muay Thai">Muay Thai</option>
+<option value="MMA">MMA</option>
+<option value="Kickboxing">Kickboxing</option>
+<option value="Jiu-Jitsu">Jiu-Jitsu / No-Gi</option>
+</select>
+</div>
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-md text-label-md uppercase tracking-wider text-on-surface" for="perfil">Perfil no Tatame</label>
+<select class="w-full bg-surface-container border border-outline-variant/40 px-space-md py-space-sm text-on-surface font-body-md text-body-md focus:outline-none focus:border-primary-container focus:bg-surface-container-high transition-colors" id="perfil" required="">
+<option disabled="" selected="" value="">Selecione seu momento</option>
+<option value="Aluno Praticante">Aluno Praticante</option>
+<option value="Atleta Competidor">Atleta Competidor</option>
+<option value="Professor / Dono de Academia">Professor / Dono de Academia</option>
+</select>
+</div>
+</div>
+<!-- LGPD Checkbox -->
+<div class="pt-space-xs">
+<label class="flex items-start gap-space-sm cursor-pointer select-none">
+<input class="mt-1 w-4 h-4 bg-surface-container accent-primary-container cursor-pointer shrink-0" required="" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface-variant">
+                  Concordo em receber atualizações e acesso antecipado da SD COMBAT via WhatsApp e e-mail de acordo com a LGPD.
+                </span>
+</label>
+</div>
+<!-- Submit Button -->
+<div class="pt-space-sm">
+<button class="w-full py-space-md px-space-lg bg-primary-container hover:bg-secondary-container text-on-primary-container font-headline-md text-headline-md uppercase tracking-wider transition-all duration-300 shadow-[0_0_25px_rgba(215,20,26,0.6)] hover:shadow-[0_0_35px_rgba(215,20,26,0.9)] cursor-pointer" type="submit">GARANTIR MEU NÚMERO NO LOTE FIRST BLOOD</button>
+</div>
+<p class="font-label-sm text-label-sm uppercase tracking-widest text-center text-on-surface-variant/70 pt-space-xs">
+              Seus dados estão protegidos. Não enviamos spam.
+            </p>
+</form>
+<!-- Feedback Success Message -->
+<div class="hidden text-center py-space-xl flex flex-col items-center gap-space-md" id="formSuccess">
+<div class="w-16 h-16 bg-primary-container text-on-primary-container flex items-center justify-center rounded-full shadow-[0_0_25px_rgba(215,20,26,0.8)]">
+<span class="material-symbols-outlined text-[36px]">done_all</span>
+</div>
+<div class="flex flex-col gap-space-xs">
+<h3 class="font-headline-md text-headline-md uppercase text-on-surface">INSCRIÇÃO CONFIRMADA NO LOTE FIRST BLOOD</h3>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-md mx-auto">
+                Seu número de pré-reserva está registrado. Em breve entraremos em contato via WhatsApp com o acesso prioritário ao lote numerado.
+              </p>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Sticky Floating WhatsApp -->
+<aside class="fixed bottom-space-lg right-space-lg z-50 flex items-center justify-center">
+<a class="group relative flex items-center justify-center w-14 h-14 bg-surface-container-high hover:bg-primary-container text-on-surface hover:text-on-primary-container transition-all shadow-[0_0_20px_rgba(215,20,26,0.4)] hover:shadow-[0_0_28px_rgba(215,20,26,0.8)] rounded-full border border-primary-container/40" href="https://wa.me/" rel="noopener noreferrer" target="_blank">
+<span class="absolute inset-0 rounded-full bg-primary-container/30 animate-ping"></span>
+<span class="material-symbols-outlined text-primary group-hover:text-on-primary-container text-[28px] relative z-10 transition-colors">chat</span>
+</a>
+</aside>
+<!-- Footer -->
+<footer class="w-full bg-surface-container-low border-t border-primary-container/20 pt-space-xl pb-space-lg relative overflow-hidden">
+<!-- Footer Subtle Dragon Emblem Watermark (4-6% opacity) -->
+<div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 opacity-10 pointer-events-none select-none"><img alt="SD COMBAT Dragon Marca D'água" class="w-full h-full object-contain filter drop-shadow-[0_0_25px_#d7141a] mix-blend-screen bg-transparent" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOWSTv0wxp72m1bWjTS8T5zxflTO73ICgez1tgdJrryDwUK6te5XApvklCa_kpqbSLdz7mOhmsm_noHmcR_ZIxAbmKF8VXXKhuw4mdt9xNrMb279JvdB4RbcwksRrXYiEIwaf-CAhPOnncTQMSG-80CRfB6yPZS8Toxz0_W92p-E8FSbn-zVW5RVt1rdV5c10yB4BxaIqDIhIoYsDbnswBfv1NTPScN3FDMx2P6y1y8sV2t_Bd2CTu" style="mix-blend-mode: screen;"/></div>
+<div class="w-full px-margin md:px-margin-tablet lg:px-margin-desktop flex flex-col items-center justify-center text-center gap-space-lg relative z-10">
+<div class="flex items-center gap-3">
+<img alt="SD COMBAT Dragon Emblem" class="h-12 w-12 object-contain mix-blend-screen filter drop-shadow-[0_0_14px_rgba(225,6,0,0.7)] bg-transparent" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOWSTv0wxp72m1bWjTS8T5zxflTO73ICgez1tgdJrryDwUK6te5XApvklCa_kpqbSLdz7mOhmsm_noHmcR_ZIxAbmKF8VXXKhuw4mdt9xNrMb279JvdB4RbcwksRrXYiEIwaf-CAhPOnncTQMSG-80CRfB6yPZS8Toxz0_W92p-E8FSbn-zVW5RVt1rdV5c10yB4BxaIqDIhIoYsDbnswBfv1NTPScN3FDMx2P6y1y8sV2t_Bd2CTu" style="mix-blend-mode: screen;"/>
+<span class="font-headline-md text-headline-md uppercase tracking-wider text-on-surface italic font-black">SD COMBAT</span>
+</div>
+<p class="font-title-lg text-title-lg tracking-widest text-primary-container uppercase">BOXE | MUAY THAI | MMA | KICKBOXING | JIU-JITSU</p>
+<div class="flex items-center justify-center gap-space-md">
+<a aria-label="Instagram" class="w-10 h-10 bg-surface-container hover:bg-primary-container text-on-surface-variant hover:text-on-primary-container flex items-center justify-center transition-all border border-outline-variant/40" href="#">
+<span class="material-symbols-outlined text-[20px]">photo_camera</span>
+</a>
+<a aria-label="WhatsApp" class="w-10 h-10 bg-surface-container hover:bg-primary-container text-on-surface-variant hover:text-on-primary-container flex items-center justify-center transition-all border border-outline-variant/40" href="https://wa.me/" rel="noopener noreferrer" target="_blank">
+<span class="material-symbols-outlined text-[20px]">chat</span>
+</a>
+</div>
+<p class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant">© 2026 SD COMBAT. TODOS OS DIREITOS RESERVADOS.</p>
+</div>
+</footer>
+</body></html>
